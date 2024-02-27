@@ -9,9 +9,14 @@ export default function Cart() {
 
   const selectProduct = useSelector(getProduct);
   const actProduct = selectProduct.payload.product.products;
+  let productStorage;
 
   const storage = localStorage.getItem("productState") || [];
-  const productStorage = JSON.parse(storage);
+  if (storage.length > 0) {
+    productStorage = JSON.parse(storage);
+  } else {
+    productStorage = storage;
+  }
   let productRender = [];
 
   if (productStorage.length > 0) {
@@ -100,13 +105,14 @@ export default function Cart() {
             <Image
               src={product.image ? product.image : null}
               alt={product.title}
-              width={200}
-              height={200}
-              className="w-20 h-20 mr-4"
+              width={100}
+              height={100}
+              className="w-16 h-20 mr-4"
             />
             <div className="flex-grow">
               <h2 className="text-lg font-bold">{product.title}</h2>
-              <p className="text-gray-600">Precio: ${product.price}</p>
+              <p className="text-sm text-gray-500">{product.description}</p>
+              <p className="font-bold">Precio: ${product.price}</p>
               <div className="flex items-center mt-2">
                 <button
                   onClick={() => removeBtn(product)}
@@ -119,6 +125,7 @@ export default function Cart() {
                   id="quantity"
                   name="quantity"
                   defaultValue={product.quantity}
+                  style={{ width: "50px" }}
                   className={`quantity-${product.id} w-16 py-1 px-2 border border-gray-300 rounded text-center focus:outline-none`}
                 />
                 <button
@@ -137,8 +144,8 @@ export default function Cart() {
         </h1>
       )}
       {productRender.length > 0 && (
-        <p className="text-gray-900 font-bold">
-          Precio Total: $<b className="total-modal">{totalPrice}</b>
+        <p className="text-gray-900 font-bold text-xl mt-4">
+          Precio Total: $<b className="total-modal ">{totalPrice}</b>
         </p>
       )}
     </>

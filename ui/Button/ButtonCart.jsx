@@ -5,7 +5,6 @@ import { addProduct } from "../../src/store/feature/userSlice";
 export default function ButtonCart({ product }) {
   const dispatch = useDispatch();
   product.quantity = 1;
-  console.log(product);
 
   const handleClick = () => {
     if (product) {
@@ -14,7 +13,7 @@ export default function ButtonCart({ product }) {
       const productStorage =
         JSON.parse(localStorage.getItem("productState")) || [];
       productStorage.push(product);
-      console.log(product);
+
       localStorage.setItem("productState", JSON.stringify(productStorage));
     }
   };
