@@ -7,14 +7,30 @@ export default function ButtonCart({ product }) {
   product.quantity = 1;
 
   const handleClick = () => {
-    if (product) {
-      dispatch(addProduct(product));
-      // como mierda HAGO PARA QUE AGREGUE AL CARRITO PERO NO REPITA
-      const productStorage =
-        JSON.parse(localStorage.getItem("productState")) || [];
-      productStorage.push(product);
+    const productStorage =
+      JSON.parse(localStorage.getItem("productState")) || [];
 
-      localStorage.setItem("productState", JSON.stringify(productStorage));
+    const index = productStorage.findIndex((el) => el.id === product.id);
+
+    if (index !== -1) {
+      productStorage[index].quantity += 1;
+    } else {
+      product.quantity = 1;
+      productStorage.push(product);
+    }
+
+    localStorage.setItem("productState", JSON.stringify(productStorage));
+    dispatch(addProduct(product));
+
+    const elementos = document.querySelectorAll(`.quantity-${product.id}`);
+    const valores = [];
+
+    elementos.forEach((elemento) => {
+      valores.push(elemento.value++);
+    });
+
+    for (let i = 0; i < elementos.length; i++) {
+      elementos[i].value = valores[i] + 1;
     }
   };
 
@@ -27,17 +43,3 @@ export default function ButtonCart({ product }) {
     </button>
   );
 }
-
-/*
-const handleClick = () => {
-    let arr = [];
-    if (dataState) {
-      dispatch(addProduct(dataState));
-
-      const storage = JSON.stringify(dataState);
-      arr.push(storage);
-
-      localStorage.setItem("productState", arr);
-    }
-  };
-*/

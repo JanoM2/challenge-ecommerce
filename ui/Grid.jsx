@@ -28,7 +28,7 @@ export default async function Grid(res) {
         filter.map((el) => (
           <div>
             <Link
-              href={`../products/${el.id}`}
+              href={`/products/${el.id}`}
               className="flex flex-col justify-center items-center w-1/2 m-auto border-solid border-2 border-sky-500"
             >
               <h2 className="text-xl font-bold mb-2">{el.title}</h2>

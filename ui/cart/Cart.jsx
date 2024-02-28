@@ -1,5 +1,7 @@
 "use client";
+
 import Image from "next/image";
+import ButtonPay from "../Button/ButtonPay";
 import { useSelector } from "react-redux";
 import { getProduct } from "../../src/store/feature/userSlice";
 import { useEffect, useState } from "react";
@@ -9,6 +11,7 @@ export default function Cart() {
 
   const selectProduct = useSelector(getProduct);
   const actProduct = selectProduct.payload.product.products;
+  let productRender = [];
   let productStorage;
 
   const storage = localStorage.getItem("productState") || [];
@@ -17,7 +20,6 @@ export default function Cart() {
   } else {
     productStorage = storage;
   }
-  let productRender = [];
 
   if (productStorage.length > 0) {
     productRender.push(productStorage);
@@ -72,17 +74,13 @@ export default function Cart() {
   const calcularTotal = () => {
     let total = 0;
 
-    for (let i = 0; i < productStorage.length; i++) {
-      if (productStorage[i].quantity === 0) {
-        productStorage.splice(i, 1);
-      }
-    }
+    productStorage = productStorage.filter((product) => product.quantity !== 0);
 
     productStorage.forEach((product) => {
       total += product.price * product.quantity;
     });
 
-    return Math.floor(total);
+    return Math.ceil(total);
   };
 
   useEffect(() => {
@@ -95,15 +93,15 @@ export default function Cart() {
   }, [productStorage]);
 
   return (
-    <>
+    <ol>
       {productRender.length > 0 ? (
         productRender[0].map((product, idx) => (
-          <div
+          <li
             key={idx}
             className={`product-${product.id} flex items-center border-b border-gray-200 py-4`}
           >
             <Image
-              src={product.image ? product.image : null}
+              src={product.image}
               alt={product.title}
               width={100}
               height={100}
@@ -136,7 +134,7 @@ export default function Cart() {
                 </button>
               </div>
             </div>
-          </div>
+          </li>
         ))
       ) : (
         <h1 className="m-full w-full flex justify-center items-center">
@@ -144,10 +142,16 @@ export default function Cart() {
         </h1>
       )}
       {productRender.length > 0 && (
-        <p className="text-gray-900 font-bold text-xl mt-4">
-          Precio Total: $<b className="total-modal ">{totalPrice}</b>
-        </p>
+        <>
+          <p className="text-gray-900 font-bold text-xl mt-4">
+            Precio Total: $<b className="total-modal ">{totalPrice}</b>
+          </p>
+          <ButtonPay
+            props={productRender}
+            className="mt-4  bg-blue-500 text-white font-bold flex justify-center py-2 m-auto w-1/2 rounded focus:outline-none focus:shadow-outline"
+          />
+        </>
       )}
-    </>
+    </ol>
   );
 }

@@ -20,7 +20,7 @@ export default async function ProductsPage() {
             className="bg-white rounded-lg shadow-lg overflow-hidden m-2 hover:border-blue-900 hover:border-2"
           >
             <div className="flex flex-col justify-center items-center p-4 m-auto">
-              <Link href={`../products/${el.id}`}>
+              <Link href={`/products/${el.id}`}>
                 <h2 className="text-xl font-bold mb-2">{el.title}</h2>
                 <p className="text-gray-900 font-bold mt-2">${el.price}</p>
                 <p className="text-gray-700 w-full">{el.description}</p>
