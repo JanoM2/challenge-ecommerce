@@ -32,21 +32,21 @@ export default function Search({ placeholder }) {
   };
 
   return (
-    <div className="relative flex flex-1 flex-shrink-0">
+    <div className="relative flex flex-1 flex-shrink-0 rounded-md border border-gray-300 shadow-md">
       <input
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        style={{ border: "1px solid gray" }}
+        className="peer block w-full rounded-md mt-2 py-3 pl-10 text-lg  placeholder-gray-500"
         placeholder={placeholder}
         defaultValue={searchParams.get("query")?.toString()}
         onChange={handleSearch}
       />
       <button
-        style={{ width: "100px", backgroundColor: "blue" }}
+        className="flex h-full items-center justify-center bg-blue-500 text-white rounded-md px-6 text-lg font-medium transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         type="submit"
         onClick={(e) => {
           handleClick(e);
         }}
         id="button-term"
-        className="flex h-10 items-center rounded-lg px-4 text-sm font-medium  transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
       >
         Buscar
       </button>

@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
-
   const selectProduct = useSelector(getProduct);
   const actProduct = selectProduct.payload.product.products;
   let productRender = [];
@@ -31,19 +30,19 @@ export default function Cart() {
 
   const removeBtn = (product) => {
     const elementos = document.querySelectorAll(`.quantity-${product.id}`);
-    const valores = [];
 
     elementos.forEach((elemento) => {
-      valores.push(elemento.value--);
+      let valorActual = parseInt(elemento.value);
+      valorActual -= 1;
+      elemento.value = valorActual;
     });
 
-    for (let i = 0; i < elementos.length; i++) {
-      elementos[i].value = valores[i] - 1;
-    }
-    product.quantity--;
-
     const index = productStorage.findIndex((p) => p.id === product.id);
-    productStorage[index].quantity - 1;
+    if (productStorage[index].quantity > 0) {
+      productStorage[index].quantity -= 1;
+    }
+
+    if (productStorage[index].quantity === 0) productStorage.splice(index, 1);
 
     const total = calcularTotal();
     localStorage.setItem("productState", JSON.stringify(productStorage));
@@ -52,19 +51,15 @@ export default function Cart() {
 
   const addBtn = (product) => {
     const elementos = document.querySelectorAll(`.quantity-${product.id}`);
-    const valores = [];
 
     elementos.forEach((elemento) => {
-      valores.push(elemento.value++);
+      let valorActual = parseInt(elemento.value);
+      valorActual += 1;
+      elemento.value = valorActual;
     });
 
-    for (let i = 0; i < elementos.length; i++) {
-      elementos[i].value = valores[i] + 1;
-    }
-
-    product.quantity++;
     const index = productStorage.findIndex((p) => p.id === product.id);
-    productStorage[index].quantity + 1;
+    productStorage[index].quantity += 1;
 
     const total = calcularTotal();
     localStorage.setItem("productState", JSON.stringify(productStorage));
@@ -73,8 +68,6 @@ export default function Cart() {
 
   const calcularTotal = () => {
     let total = 0;
-
-    productStorage = productStorage.filter((product) => product.quantity !== 0);
 
     productStorage.forEach((product) => {
       total += product.price * product.quantity;
@@ -93,65 +86,79 @@ export default function Cart() {
   }, [productStorage]);
 
   return (
-    <ol>
+    <ul className="flex flex-col items-center p-3">
       {productRender.length > 0 ? (
         productRender[0].map((product, idx) => (
           <li
+            style={{
+              backgroundColor: "white",
+              border: "1px solid black",
+              padding: "10px",
+              margin: "5px",
+            }}
             key={idx}
-            className={`product-${product.id} flex items-center border-b border-gray-200 py-4`}
+            className={`product-${product.id} rounded-md flex items-center border-b border-gray-200 py-4 w-full`}
           >
-            <Image
-              src={product.image}
-              alt={product.title}
-              width={100}
-              height={100}
-              className="w-16 h-20 mr-4"
-            />
-            <div className="flex-grow">
-              <h2 className="text-lg font-bold">{product.title}</h2>
-              <p className="text-sm text-gray-500">{product.description}</p>
-              <p className="font-bold">Precio: ${product.price}</p>
-              <div className="flex items-center mt-2">
-                <button
-                  onClick={() => removeBtn(product)}
-                  className="text-gray-500 hover:text-gray-700 focus:outline-none mr-2"
-                >
-                  -
-                </button>
-                <input
-                  type="tel"
-                  id="quantity"
-                  name="quantity"
-                  defaultValue={product.quantity}
-                  style={{ width: "50px" }}
-                  className={`quantity-${product.id} w-16 py-1 px-2 border border-gray-300 rounded text-center focus:outline-none`}
+            <div className="flex items-center w-full">
+              <div className="mr-4">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={100}
+                  height={100}
                 />
-                <button
-                  onClick={() => addBtn(product)}
-                  className="text-gray-500 hover:text-gray-700 focus:outline-none ml-2"
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-lg font-bold">{product.title}</h2>
+                <p className="font-bold">Precio: ${product.price}</p>
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    marginTop: "10px",
+                    paddingLeft: "10px",
+                    border: "1px solid gray",
+                    width: "100px",
+                  }}
+                  className="flex justify-center border border-gray-300 rounded-md"
                 >
-                  +
-                </button>
+                  <button
+                    onClick={() => removeBtn(product)}
+                    className="text-gray-500 hover:text-gray-700 focus:outline-none px-3 py-1 border-2 border-gray-300 rounded-l-md transition-colors duration-200"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="tel"
+                    id="quantity"
+                    name="quantity"
+                    defaultValue={product.quantity}
+                    style={{ width: "50px" }}
+                    className={`quantity-${product.id} px-2 py-1 text-center focus:outline-none`}
+                  />
+                  <button
+                    onClick={() => addBtn(product)}
+                    className="text-gray-500 focus:outline-none px-3 py-1 border-l border-gray-300 rounded-r-md transition-colors duration-200"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
             </div>
           </li>
         ))
       ) : (
-        <h1 className="m-full w-full flex justify-center items-center">
-          Your cart is emty
+        <h1 className="bg-white m-full w-full flex justify-center items-center">
+          Your cart is empty
         </h1>
       )}
       {productRender.length > 0 && (
-        <>
-          <p className="text-gray-900 font-bold text-xl mt-4">
-            Precio Total: $<b className="total-modal ">{totalPrice}</b>
+        <div>
+          <p className="text-gray-900 font-bold text-xl my-10 mx-4 uppercase tracking-wide leading-tight">
+            Precio Total: $<b className="total-modal">{totalPrice}</b>
           </p>
-          <ButtonPay
-            props={productRender}
-            className="mt-4  bg-blue-500 text-white font-bold flex justify-center py-2 m-auto w-1/2 rounded focus:outline-none focus:shadow-outline"
-          />
-        </>
+          <ButtonPay />
+        </div>
       )}
-    </ol>
+    </ul>
   );
 }

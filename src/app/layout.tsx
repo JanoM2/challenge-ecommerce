@@ -1,9 +1,9 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import ModalCart from "../../ui/modal/ModalCart";
 import { Inter } from "next/font/google";
-import { Navigation } from "../../ui/Navigation";
+import type { Metadata } from "next";
 import Side from "../../ui/SideBar";
+import ModalCart from "../../ui/modal/ModalCart";
+import { Navigation } from "../../ui/Navigation";
 import { DataProvider } from "../store/provider";
 
 const inter = Inter({ subsets: ["latin"] });

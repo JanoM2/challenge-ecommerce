@@ -1,4 +1,5 @@
 import Grid from "../../../../ui/Grid";
+import ButtonOpenCart from "../../../../ui/Button/ButtonOpenCart";
 
 const fetchCategories = async (props) => {
   const res = await fetch(
@@ -31,6 +32,7 @@ export default async function SearchPage({ params }) {
 
   return (
     <section>
+      <ButtonOpenCart />
       <Grid products={res} query={query} arr={arrCategories}></Grid>
     </section>
   );

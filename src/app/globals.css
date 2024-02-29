@@ -17,13 +17,13 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  height: 100vh;
+  background: rgb(5, 71, 178);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    0deg,
+    rgb(30, 110, 238) 24%,
+    rgb(15, 84, 194) 69%
+  );
 }
 
 @layer utilities {

@@ -7,11 +7,17 @@ const fetchCall = async () => {
 
 export default async function SideBar() {
   const res = await fetchCall();
+
   return (
-    <div className="flex justify-center flex-col items-left w-10rem  bg-blue-500">
+    <div className="flex bg-white justify-center gap-3">
       {res.map((el, idx) => (
-        <Link href={`/search/${el}`} key={idx}>
-          {el}
+        <Link
+          href={`/search/${el}`}
+          key={idx}
+          style={{ padding: "5px" }}
+          className="font-bold rounded-md text-lg mb-2 bg-blue-500 hover:bg-blue-700 p-2 focus:outline-none focus:shadow-outline"
+        >
+          <b>{el}</b>
         </Link>
       ))}
     </div>

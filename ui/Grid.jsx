@@ -1,9 +1,10 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ButtonCart from "./Button/ButtonCart";
+import { GridSkeleton } from "./skeletons";
 
-export default async function Grid(res) {
-  const { products, query, arr } = res;
+export const Grid = ({ products, query, arr }) => {
   let regex;
 
   let filter = products.filter((el, idx) => {
@@ -23,25 +24,30 @@ export default async function Grid(res) {
   const validator = filter.length > 0;
 
   return (
-    <ul>
-      {validator ? (
+    <ul className="flex flex-wrap gap-3">
+      {!products ? (
+        <GridSkeleton />
+      ) : validator ? (
         filter.map((el) => (
-          <div>
+          <div
+            style={{ width: "300px", margin: "10px" }}
+            className="flex flex-col justify-center bg-white rounded-lg hover:shadow-lg p-2"
+          >
             <Link
               href={`/products/${el.id}`}
-              className="flex flex-col justify-center items-center w-1/2 m-auto border-solid border-2 border-sky-500"
+              style={{ width: "200px" }}
+              className="flex flex-col justify-center items-center m-auto border-solid border-2 border-sky-500"
             >
-              <h2 className="text-xl font-bold mb-2">{el.title}</h2>
-              <p className="text-gray-900 font-bold mt-2">${el.price}</p>
-              <p className="text-gray-700 w-full">{el.description}</p>
               <Image
                 src={el.image}
                 alt={`Producto ${el.id}`}
-                className="m-10"
+                className="rounded-md h-38 w-30 p-3"
                 width={300}
                 height={300}
               />
-              <p className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              <h2 className="text-xl font-bold mb-2">{el.title}</h2>
+              <p className="text-gray-700 text-nowrap">{el.description}</p>
+              <p className="font-bold text-2xl border-t-2 border-slate-200 pt-3">
                 ${el.price}
               </p>
             </Link>
@@ -55,4 +61,6 @@ export default async function Grid(res) {
       )}
     </ul>
   );
-}
+};
+
+export default Grid;
