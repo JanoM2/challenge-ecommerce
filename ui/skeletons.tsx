@@ -20,18 +20,80 @@ export function HomeSkeleton() {
 
 export function ProductsSkeleton() {
   return (
-    <div>
-      <div className="flex flex-wrap gap-3 animate-pulse">
-        <div className="w-1/3">
-          <div className="flex flex-col items-center p-4 bg-white rounded shadow">
-            <div className="w-24 h-6 bg-gray-300 mb-4"></div>
-            <div className="font-bold text-2xl border-t-2 border-gray-300 pt-3 w-2/3 h-8 mb-4"></div>
-            <div className="text-xl font-bold mb-2 w-1/2 h-6 bg-gray-300 mb-4"></div>
-            <div className="text-gray-700 w-full h-6 bg-gray-300"></div>
-          </div>
+    <>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
         </div>
-      </div>
-    </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
+        </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
+        </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
+        </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
+        </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+      <li
+        style={{ width: "400px", height: "80rem" }}
+        className="flex flex-col justify-between bg-white rounded-lg hover:shadow-lg m-3 p-3"
+      >
+        <div className="flex flex-col items-center p-4">
+          <div className="w-40 h-40 bg-gray-300 rounded-md mb-3"></div>
+          <p className="font-bold text-2xl border-t-2 border-gray-200 pt-3 w-40 h-8 bg-gray-300 mb-2"></p>
+          <h2 className="text-xl font-bold mb-2 w-40 h-6 bg-gray-300 mb-2"></h2>
+          <p className="text-gray-700 w-full h-20 bg-gray-300"></p>
+        </div>
+        <div className="w-40 h-10 bg-gray-300"></div>
+      </li>
+    </>
   );
 }
 
